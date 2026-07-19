@@ -1,0 +1,12 @@
+﻿{
+  "allowCommands": [
+    "pwsh tools/generate-ai-configs.ps1",
+    "cmd /c *.bat",
+    "cmd /c *.cmd"
+  ],
+  "denyPaths": [
+    "**/*.env",
+    "**/*.key"
+  ]
+}
+

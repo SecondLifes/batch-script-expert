@@ -1,0 +1,59 @@
+# =============================================================================
+# .cursorignore — Batch Script Expert AI Spec-Kit
+# Excludes files and folders from Cursor AI indexing/context.
+# See docs/ai-ignore-strategy.md for the full strategy.
+# =============================================================================
+
+# --- Build Artifacts ---
+# None — batch is interpreted directly by cmd.exe, no compile step
+
+# --- IDE Temporary Files ---
+*.suo
+.vs/
+
+# --- Script Output ---
+logs/
+
+# --- Build / Output Directories ---
+build/
+dist/
+output/
+
+# --- Dependencies and Caches ---
+node_modules/
+.venv/
+.pytest_cache/
+.mypy_cache/
+modules/
+
+# --- Sensitive Files ---
+*.key
+*.pfx
+*.p12
+.env
+.env.*
+
+# --- Large / Noisy Files ---
+*.log
+*.dmp
+*.bak
+*.tmp
+
+# --- OS Artifacts ---
+Thumbs.db
+.DS_Store
+
+# =============================================================================
+# IMPORTANT: Do NOT add these paths — they are essential for AI context:
+#   AGENTS.md
+#   README.md
+#   .agents/            (single source of truth: rules, commands, skills)
+#   tools/               (generate-ai-configs.ps1)
+#   .github/copilot-instructions.md
+#   .claude/
+#   .cursor/rules/
+#   .gemini/
+#   .kiro/
+#   examples/
+#   docs/
+# =============================================================================

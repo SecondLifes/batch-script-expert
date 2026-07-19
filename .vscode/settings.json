@@ -1,0 +1,11 @@
+{
+  "files.exclude": {
+    "**/Thumbs.db": true,
+    "**/.DS_Store": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.venv": true,
+    "**/.pytest_cache": true
+  }
+}
