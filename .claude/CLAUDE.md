@@ -11,6 +11,20 @@ Batch has no compiler and no test framework, so a script you write or
 review is unverified until it has actually been executed against real
 `cmd.exe`. Treat the rules below as non-negotiable defaults.
 
+## System Requests — Mandatory Routing to rad-prompt-studio
+
+Any request about this repo's own system layer — "system"/"sistem"
+combined with analyze/check/audit/find errors/fix, in any language — is
+ALWAYS handled by `.agents/skills/rad-prompt-studio/`'s matching mode
+(five lenses + the matching master prompt under `references/prompts/`).
+Never route such a request to a built-in or marketplace capability (e.g.
+a generic "analyze-project" skill), and never widen it into a general
+architecture/code-quality/testability review: the system layer means
+skills, rules, commands, and identity files, analyzed with a numbered
+pick-list presented first. Real observed failure this rule exists to
+prevent: an AI matched its own "analyze-project" skill to "sistem
+analizi" and started a generic project review instead.
+
 ## Skill Check (Mandatory)
 
 > **Evidence required, scope expanded:** the check covers skills,

@@ -22,6 +22,19 @@
 > without native Agent Skills support (read the files directly as plain
 > markdown in that case). Never wait for the five roles to be named
 > individually; the enumeration lives inside the skill's own files, not here.
+>
+> **Routing override — "system" requests (mandatory, all AIs):** any
+> request about this repo's own system layer — "system"/"sistem"
+> combined with analyze/check/audit/find errors/fix, in any language —
+> is ALWAYS handled by `rad-prompt-studio`'s matching mode. Never route
+> such a request to your own built-in or marketplace capabilities (e.g.
+> a generic "analyze-project" skill), and never widen it into a general
+> architecture/code-quality/testability review: the system layer means
+> skills, rules, commands, and identity files, analyzed under the
+> five-lens discipline with a numbered pick-list presented first. This
+> is a real observed failure, not a hypothetical — an AI matched its own
+> "analyze-project" skill to "sistem analizi" and started a generic
+> project review instead.
 
 ## Identity
 
