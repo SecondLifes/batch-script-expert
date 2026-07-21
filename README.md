@@ -16,8 +16,7 @@
 
 *[🇹🇷 Türkçe](README.tr-TR.md) · [Contributing](CONTRIBUTING.md) · [Code of Conduct](CODE_OF_CONDUCT.md) · [Security](SECURITY.md) · [Acknowledgments](ACKNOWLEDGMENTS.md)*
 
-<!-- ![Overview](docs/images/overview.png) -->
-<!-- Generate this image using the "Image 1 — Overview" prompt in Prompts/image-prompts.md, save it to docs/images/overview.png, then uncomment the line above. -->
+![Overview](docs/images/overview.png)
 
 </div>
 
@@ -86,8 +85,7 @@ The **Batch Script Expert AI Spec-Kit** is not a code framework — it's a set o
 
 ## 🌟 Main Guidelines Taught to AI
 
-<!-- ![Core Features](docs/images/core-features.png) -->
-<!-- Generate this image using the "Image 2 — Core Features" prompt in Prompts/image-prompts.md, save it to docs/images/core-features.png, then uncomment the line above. -->
+![Core Features](docs/images/core-features.png)
 
 ### Variable Expansion — the #1 Source of Bugs
 
@@ -284,8 +282,7 @@ for the full ruleset behind this example.
 
 ## 🎯 Design & Philosophy
 
-<!-- ![Design & Philosophy](docs/images/design-philosophy.png) -->
-<!-- Generate this image using the "Image 3 — Design & Philosophy" prompt in Prompts/image-prompts.md, save it to docs/images/design-philosophy.png, then uncomment the line above. -->
+![Design & Philosophy](docs/images/design-philosophy.png)
 
 **Never trust a script until it's actually been run.**
 
@@ -361,7 +358,7 @@ Open **this kit itself** as the working folder in any supported AI CLI (Claude C
 |---|---|
 | `Sistemi analiz et` / `Analyze the system` | Analyzes this kit's own system layer (`.agents/skills/`, `.agents/rules/`, `.agents/commands/`, `AGENTS.md`, `.claude/CLAUDE.md`) — `examples/`, `docs/`, `src/`, `tools/` stay out unless you ask. The report lands in this kit's own `analysis/result/{ai}_v{n}.md` — a local working artifact, gitignored by design; the permanent record of applied fixes is git history + issues + CHANGELOG. |
 | `Değerlendir` / `Evaluate the findings` | Grades the existing reports in `analysis/result/` against current content (`STILL_VALID`/`STALE`/`REFUTED`...), presents a correction list, and waits for your approval. |
-| `Düzelt: <hedef>` / `Fix <target>` | Approval-gated edit: analysis → evaluation of priors → your explicit approval → the edit. If the edited file is a bundled shared skill (`rad-*`) or a `Prompts/system/` master and this kit sits inside its parent AI-Spec-Kits-Maker workspace, the same fix is applied to the parent's master copy too — both sides stay current. |
+| `Düzelt: <hedef>` / `Fix <target>` | Approval-gated edit: analysis → evaluation of priors → your explicit approval → the edit. If the edited file is a bundled shared skill (`rad-*`) and this kit sits inside its parent AI-Spec-Kits-Maker workspace, the same fix is applied to the parent's master copy too — both sides stay current. |
 | `<konu> için skill var mı?` / `Is there a skill for <topic>?` | The bundled `rad-skill-finder` searches local → `npx skills` ecosystem → directories → MCP/plugin registries → web with visible evidence (≥3 query phrasings); finds go through quarantine + a security scan, then a single install approval. |
 
 ---

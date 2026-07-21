@@ -134,7 +134,7 @@ everything it finds.**
 
 1. **Enumerate candidates.** List every subfolder under `.claude/skills/`
    (each one a candidate target) and every file directly under `Prompts/`
-   and `Prompts/system/` (each one a candidate target). Inside a spec-kit,
+   (each one a candidate target). Inside a spec-kit,
    also include the rule files (`.agents/rules/*.md`), command files
    (`.agents/commands/*.md`), and the identity files. **The identity
    candidate is always the PAIR `AGENTS.md` + `.claude/CLAUDE.md`,

@@ -114,7 +114,7 @@ Bu klasörlerin çoğu **üretilmiş** (generated) içerik barındırır — kay
 | `proje-haritasi.md` | Bu dosya. |
 | `ai-ignore-strategy.md` | Hangi dosyaların AI bağlamından hariç tutulacağı stratejisi. |
 | `batch-script-expert-analysis.md` | Beş-mercekli (five-lens) öz-denetim raporu — kitin tamamlanmasından sonra üretildi. |
-| `Prompts/image-prompts.md` | README banner'ları için 3 AI-görsel-üretim prompt'u (Overview, Core Features, Design & Philosophy) — vurgu rengi "terminal green (#00FF41-style) on black, classic console CRT aesthetic" olarak sabitlendi (workspace'teki diğer kitlerden — deep-red/burnt-orange, violet-cyan — ayırt edilebilir kalması için). Image 2'nin özellik listesi bu kitin gerçek kurallarını (delayed expansion, errorlevel kontrolü, subroutine modülerliği, unattended-hazır script'ler) görsel motiflere çeviriyor. Gerçek PNG'lerin üretimi kapsam dışı — README'deki üç yer-tutucu (HTML-yorum içinde) yorumda kalıyor, gerçek görsel üretilince yorumdan çıkarılacak. |
+| `Prompts/image-prompts.md` / `.tr-TR.md` | README banner'ları için 3 AI-görsel-üretim prompt'u — kendi başına yeterli, kite özgü sanat yönetimi: **"Gece Vardiyası"** (sabah 3'te kimsesiz server odasında kusursuz çalışan retro CRT/delikli-kart dünyası; fosfor amber + kömür karanlığı + ay-mavisi; insan/robot/maskot yok — Image 3: CRT'lerden yapılmış deniz feneri = "çalıştırılmadan güvenme"). Eski paylaşılan `Prompts/system/` temel-prompt şeması emekliye ayrıldı. README'lerdeki (EN+TR) görsel etiketleri artık açık; PNG'ler üretilip `docs/images/`e inince görünürler. `tools/resize-images.bat` ve `docs/images/README.md` de bu turda kite eklendi. |
 
 ## `examples/`
 

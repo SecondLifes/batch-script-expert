@@ -16,8 +16,7 @@
 
 *[🇬🇧 English](README.md)*
 
-<!-- ![Overview](docs/images/overview.png) -->
-<!-- Bu görseli Prompts/image-prompts.md'deki "Image 1 — Overview" prompt'uyla üret, docs/images/overview.png'ye kaydet, sonra yukarıdaki satırı yorumdan çıkar. -->
+![Overview](docs/images/overview.png)
 
 </div>
 
@@ -85,8 +84,7 @@
 
 ## 🌟 Yapay Zekaya Öğretilen Ana Kurallar
 
-<!-- ![Core Features](docs/images/core-features.png) -->
-<!-- Bu görseli Prompts/image-prompts.md'deki "Image 2 — Core Features" prompt'uyla üret, docs/images/core-features.png'ye kaydet, sonra yukarıdaki satırı yorumdan çıkar. -->
+![Core Features](docs/images/core-features.png)
 
 ### Değişken Genişletme — Hataların #1 Kaynağı
 
@@ -284,8 +282,7 @@ tam kural seti için `.agents/rules/batch-conventions.md`'ye bakın.
 
 ## 🎯 Tasarım ve Felsefe
 
-<!-- ![Design & Philosophy](docs/images/design-philosophy.png) -->
-<!-- Bu görseli Prompts/image-prompts.md'deki "Image 3 — Design & Philosophy" prompt'uyla üret, docs/images/design-philosophy.png'ye kaydet, sonra yukarıdaki satırı yorumdan çıkar. -->
+![Design & Philosophy](docs/images/design-philosophy.png)
 
 **Gerçekten çalıştırılana kadar bir betiğe asla güvenme.**
 
@@ -328,7 +325,7 @@ kontrol eden çok katmanlı bir strateji uygular. PR göndermeden önce:
 |---|---|
 | `Sistemi analiz et` / `Analyze the system` | Bu kitin kendi sistem katmanını analiz eder (`.agents/skills/`, `.agents/rules/`, `.agents/commands/`, `AGENTS.md`, `.claude/CLAUDE.md`) — `examples/`, `docs/`, `src/`, `tools/` siz istemedikçe dışarıda kalır. Rapor bu kitin kendi `analysis/result/{ai}_v{n}.md`'sine iner — yerel bir çalışma dosyasıdır, bilerek gitignore'lanmıştır; uygulanan düzeltmelerin kalıcı kaydı git geçmişi + issue'lar + CHANGELOG'dur. |
 | `Değerlendir` / `Evaluate the findings` | `analysis/result/`'taki mevcut raporları güncel içeriğe karşı derecelendirir (`STILL_VALID`/`STALE`/`REFUTED`...), bir düzeltme listesi sunar ve onayınızı bekler. |
-| `Düzelt: <hedef>` / `Fix <target>` | Onay-kapılı düzenleme: analiz → önceki bulguların değerlendirmesi → açık onayınız → düzenleme. Düzenlenen dosya paketlenmiş bir paylaşımlı skill (`rad-*`) veya bir `Prompts/system/` ana dosyaysa ve bu kit üst AI-Spec-Kits-Maker çalışma alanının içindeyse, aynı düzeltme üst çalışma alanının ana kopyasına da uygulanır — her iki taraf da güncel kalır. |
+| `Düzelt: <hedef>` / `Fix <target>` | Onay-kapılı düzenleme: analiz → önceki bulguların değerlendirmesi → açık onayınız → düzenleme. Düzenlenen dosya paketlenmiş bir paylaşımlı skill (`rad-*`) ise ve bu kit üst AI-Spec-Kits-Maker çalışma alanının içindeyse, aynı düzeltme üst çalışma alanının ana kopyasına da uygulanır — her iki taraf da güncel kalır. |
 | `<konu> için skill var mı?` / `Is there a skill for <topic>?` | Paketlenmiş `rad-skill-finder`, yerel → `npx skills` ekosistemi → dizinler → MCP/plugin kayıtları → web sırasıyla, görünür kanıtla (≥3 sorgu varyantı) arar; bulunanlar karantina + güvenlik taramasından geçer, sonra tek kurulum onayı sorulur. |
 
 ---

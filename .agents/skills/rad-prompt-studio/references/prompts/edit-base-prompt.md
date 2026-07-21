@@ -34,25 +34,24 @@ adopted, and only once an approved change list exists.
    assume the change was clean because it was small.
 6. **Bidirectional propagation for shared system files.** Some files
    exist as deliberate copies on both sides of the kit ↔ workspace
-   boundary: bundled `rad-*` skills under a kit's `.agents/skills/`, and
-   the shared master prompts under `Prompts/system/`. An approved edit to
-   one side must reach the other side in the same run — both sides stay
-   current, always:
+   boundary: bundled `rad-*` skills under a kit's `.agents/skills/`.
+   An approved edit to one side must reach the other side in the same
+   run — both sides stay current, always:
    - **Editing inside a kit** (the working directory is a kit that is its
      own git repo): after applying the edit, check whether the parent
      workspace exists at `../../` — the marker is a `CLAUDE.md` charter
-     there plus a matching canonical copy (`../../.claude/skills/<name>/`
-     or `../../Prompts/system/<file>`). If found, apply the identical
-     change to the canonical copy too, and run the parent's
-     `tools/sync-hardlinks.ps1` if the canonical file is hardlinked. If
-     no parent exists (a standalone clone), state that explicitly in the
-     edit report's Verification field — never silently skip it.
+     there plus a matching canonical copy (`../../.claude/skills/<name>/`).
+     If found, apply the identical change to the canonical copy too, and
+     run the parent's `tools/sync-hardlinks.ps1` if the canonical file is
+     hardlinked. If no parent exists (a standalone clone), state that
+     explicitly in the edit report's Verification field — never silently
+     skip it.
    - **Editing at the workspace root**: if the edited file is a canonical
-     `rad-*` skill or a `Prompts/system/` master, propagate to
-     `blank-scaffold/` and to every `spec-kits/*` kit that actually
-     bundles a copy — this is exactly `rad-template-builder`'s "Bundled
-     `rad-*` skill drift" maintenance (see that skill), run as part of
-     the same edit, not deferred to someday.
+     `rad-*` skill, propagate to `blank-scaffold/` and to every
+     `spec-kits/*` kit that actually bundles a copy — this is exactly
+     `rad-template-builder`'s "Bundled `rad-*` skill drift" maintenance
+     (see that skill), run as part of the same edit, not deferred to
+     someday.
    - Kit-side copies live in separate git repos — commit the kit-side
      change in the kit's own repo (and note that the parent's submodule
      pointer needs bumping) rather than leaving the kit dirty.
