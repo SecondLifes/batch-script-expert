@@ -56,6 +56,34 @@ adopted, and only once an approved change list exists.
    - Kit-side copies live in separate git repos — commit the kit-side
      change in the kit's own repo (and note that the parent's submodule
      pointer needs bumping) rather than leaving the kit dirty.
+7. **Fix publication workflow (git repos with a GitHub remote).** The AI
+   applying the fixes owns the whole publication trail itself — helper
+   scripts like a kit's `update.bat` are manual conveniences for humans,
+   never part of this flow. Per **accepted finding**, in this order:
+   1. **GitHub issue first** — `gh issue create` on the target's own
+      repo: title = the finding's one-line summary, body = the evidence
+      (file:line citations, which analyses found it, cross-confirmation
+      notes). The returned number `#N` is the finding's public ID.
+   2. **One commit per finding** — message `Fix <summary> (#N)`, body
+      carrying the why. Trivially-related findings in the same file may
+      share one commit listing every issue ref. Never one giant
+      commit for the whole run.
+   3. **`CHANGELOG.md`** — every fix adds a line under the release-in-
+      progress's `### Fixed` (Keep a Changelog format; create the file
+      if the repo lacks one). Committed as its own final `chore:` commit.
+   4. **Version tag** — after all fixes: bump the annotated
+      `vMAJOR.MINOR.PATCH` tag (PATCH for fixes, MINOR if features/
+      capabilities were added) locally.
+   5. **Never push** — commits, tags, and the moment issues get linked
+      to commits all go live when the *user* pushes; issue creation via
+      `gh` is the one step that touches GitHub directly, and it only
+      happens for findings the user already approved fixing.
+   6. **Retention** — once a target's fixes are committed, delete its
+      report files per `analysis-output.md`'s Retention rule; git
+      history + issues + CHANGELOG are the permanent record.
+   If the repo has no GitHub remote or `gh` isn't authenticated, skip
+   the issue step, note that in each commit body, and continue —
+   the workflow degrades gracefully, it never blocks the fix.
 
 ## Mandatory report header
 
