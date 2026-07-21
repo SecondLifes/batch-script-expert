@@ -134,12 +134,30 @@ everything it finds.**
 
 1. **Enumerate candidates.** List every subfolder under `.claude/skills/`
    (each one a candidate target) and every file directly under `Prompts/`
-   and `Prompts/system/` (each one a candidate target).
+   and `Prompts/system/` (each one a candidate target). Inside a spec-kit,
+   also include the rule files (`.agents/rules/*.md`), command files
+   (`.agents/commands/*.md`), and the identity files. **The identity
+   candidate is always the PAIR `AGENTS.md` + `.claude/CLAUDE.md`,
+   presented as one list item and analyzed together** — they are two
+   tool-facing halves of the same identity and drift between them is
+   itself a finding; listing only `AGENTS.md` is an incomplete
+   enumeration (observed real gap in live testing).
 2. **Apply Golden Rule 7 (Excluded from analysis) before presenting
    anything** — drop every candidate matching the exclusion list (any
    `*.tr-TR.md` file, `rad-python`, `rad-powershell-master`) from the
    list entirely; don't show them as pickable options and don't mention
    them as skipped, they simply aren't candidates.
+   **Inside a spec-kit, also drop every bundled `rad-*` skill that is a
+   byte-identical mirror of a workspace master** (`rad-prompt-studio`,
+   `rad-skill-finder`, `rad-web-scraping`, and any future bundled
+   mirror): analyzing the copy duplicates work that belongs to the
+   master's own analysis at the workspace root. Unlike the Golden Rule 7
+   silent drops, mention these in ONE trailing line under the pick-list
+   ("bundled workspace mirrors excluded by default: ... — say 'include
+   mirrors' to add them") so the user can opt them in explicitly. A
+   bundled copy that has *diverged* from its master is not excluded —
+   divergence means it's no longer a mirror, and the divergence itself
+   is a finding worth surfacing.
 3. **Present the remaining candidates as a numbered pick-list** — one
    list covering both folders (skills first, then prompt files, or
    grouped by folder, either is fine as long as it's numbered) — and ask
