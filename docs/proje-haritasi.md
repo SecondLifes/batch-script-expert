@@ -61,7 +61,7 @@ Kuralların, komutların ve becerilerin (skills) **gerçek içeriği sadece `.ag
 
 | Dosya | Ne işe yarar |
 |---|---|
-| `SKILL.md` | Workspace'in kendi `.claude/skills/rad-skill-finder/`'ının taşınabilir varyantı — bu projenin kendi `.agents/skills/`'ını, `npx skills` ekosistemini, GitHub awesome-list'lerini ve web'i arar. "Bana bir GitHub repo otomasyon script'i yaz" gibi bir istek geldiğinde, sıfırdan yazmadan önce ilgili bir skill olup olmadığını kontrol eder. Workspace kaynağı güncellenirse bu kopyanın da tazelenmesi gerekir (statik snapshot). |
+| `SKILL.md` | Workspace'in kendi `.claude/skills/rad-skill-finder/`'ının birebir kopyası — bu projenin kendi `.agents/skills/`'ını, `npx skills` ekosistemini, GitHub awesome-list'lerini ve web'i arar. "Bana bir GitHub repo otomasyon script'i yaz" gibi bir istek geldiğinde, sıfırdan yazmadan önce ilgili bir skill olup olmadığını kontrol eder. Workspace kaynağı güncellenirse bu kopyanın da tazelenmesi gerekir (statik snapshot, herhangi bir fark = bayatlamış). |
 
 ### `.agents/skills/rad-python/`
 
@@ -73,13 +73,13 @@ Kuralların, komutların ve becerilerin (skills) **gerçek içeriği sadece `.ag
 
 | Dosya | Ne işe yarar |
 |---|---|
-| `SKILL.md` + `references/five-lenses.md` + `references/prompts/{analysis,evaluation,edit}-base-prompt.md` | Workspace'in kendi `.claude/skills/rad-prompt-studio/`'sunun taşınabilir varyantı — beş uzmanlık merceğini (Prompt Engineer & Analyst, Repo Auditor, DevOps/Config Engineer, Systems Forensics Analyst, Context Engineer) aynı anda üstlenip yeni prompt tasarlama (Design), bu projenin kendi prompt/rule/skill/sync-mimarisini denetleme (Analysis, tek dosya veya toplu tarama) ve onay-kapılı, analiz-önce düzenleme (Edit) modlarını sağlar. Her mod kendi `references/prompts/*.md` master prompt'unu kullanmak zorundadır. `AGENTS.md`'nin `## Identity` bölümü bu skill'in Prompt Engineer & Analyst merceğiyle yazıldı. |
+| `SKILL.md` + `references/{context-engineer,devops-config-engineer,prompt-engineer-analyst,repo-auditor,systems-forensics-analyst}.md` + `references/prompts/{analysis,evaluation,edit}-base-prompt.md` | Workspace'in kendi `.claude/skills/rad-prompt-studio/`'sunun birebir kopyası — beş uzmanlık merceğini (Prompt Engineer & Analyst, Repo Auditor, DevOps/Config Engineer, Systems Forensics Analyst, Context Engineer) aynı anda üstlenip yeni prompt tasarlama (Design), bu projenin kendi prompt/rule/skill/sync-mimarisini denetleme (Analysis — tek dosya, spec-kit sistem klasörü veya toplu tarama), eski analizleri güncel içeriğe karşı derecelendirme (Evaluation) ve onay-kapılı, analiz-önce düzenleme (Edit) modlarını sağlar. Her mod kendi `references/prompts/*.md` master prompt'unu kullanmak zorundadır. `AGENTS.md`'nin `## Identity` bölümü bu skill'in Prompt Engineer & Analyst merceğiyle yazıldı. Workspace kaynağı güncellenirse bu kopyanın da tazelenmesi gerekir (statik snapshot, herhangi bir fark = bayatlamış). |
 
 ### `.agents/skills/rad-web-scraping/`
 
 | Dosya | Ne işe yarar |
 |---|---|
-| `SKILL.md` + `references/{tool-selection,discovery-and-extraction-patterns}.md` | Workspace'in kendi `.claude/skills/rad-web-scraping/`'inin birebir kopyası (workspace'e özgü içerik yok) — genel web scraping / yapılandırılmış veri çıkarma skill'i. Stack batch olsa da, AI'nin bir siteden veri çekecek yardımcı bir Python script'i yazması gerektiğinde (`common-utilities.md`'deki PowerShell interop desenine paralel) hangi kaynağı (API > gömülü JSON > DOM en son) ve hangi aracı (crawl4AI, ScrapeGraphAI, düz HTTP, Playwright) seçeceğine karar vermesini sağlar. |
+| `SKILL.md` + `references/{tool-selection,discovery-and-extraction-patterns}.md` | Workspace'in kendi `.claude/skills/rad-web-scraping/`'inin birebir kopyası (workspace'e özgü içerik yok) — genel web scraping / yapılandırılmış veri çıkarma skill'i. Stack batch olsa da, AI'nin bir siteden veri çekecek yardımcı bir Python script'i yazması gerektiğinde (`common-utilities.md`'deki PowerShell interop desenine paralel) hangi kaynağı (API > gömülü JSON > DOM en son) ve hangi aracı (crawl4AI, ScrapeGraphAI, düz HTTP, Playwright) seçeceğine karar vermesini sağlar. Workspace kaynağı güncellenirse bu kopyanın da tazelenmesi gerekir (statik snapshot, herhangi bir fark = bayatlamış). |
 
 ---
 

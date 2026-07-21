@@ -12,16 +12,16 @@
 > If `.agents/skills/rad-prompt-studio/` is referenced or pointed at in any
 > way — by name, by folder, or by a request it naturally matches (designing,
 > auditing, or editing a prompt/rule/skill, reviewing the whole project for
-> problems) — that reference alone is the complete instruction to load
-> `.agents/skills/rad-prompt-studio/references/five-lenses.md` and adopt all
+> problems) — that reference alone is the complete instruction to load every
+> file under `.agents/skills/rad-prompt-studio/references/*.md` and adopt all
 > five specialist lenses defined there simultaneously, then follow the
 > matching master prompt under `.agents/skills/rad-prompt-studio/references/prompts/*.md`
-> for whichever mode (Design/Analysis/Edit) the request calls for. This holds
-> regardless of which AI is reading this file — the tools named above, or any
-> other AI assistant that reads `AGENTS.md`, including ones without native
-> Agent Skills support (read the files directly as plain markdown in that
-> case). Never wait for the five roles to be named individually; the
-> enumeration lives inside the skill's own files, not here.
+> for whichever mode (Design/Analysis/Evaluation/Edit) the request calls for.
+> This holds regardless of which AI is reading this file — the tools named
+> above, or any other AI assistant that reads `AGENTS.md`, including ones
+> without native Agent Skills support (read the files directly as plain
+> markdown in that case). Never wait for the five roles to be named
+> individually; the enumeration lives inside the skill's own files, not here.
 
 ## Identity
 
