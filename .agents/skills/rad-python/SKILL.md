@@ -18,6 +18,15 @@ into one, per this workspace's "one skill per topic" policy.
 - Designing a new component/service or refactoring a tangled one
 - Deciding between inheritance and composition, or whether to add an abstraction
 
+## Usage
+
+| You say | What happens |
+|---|---|
+| `"Write a script to parse these CSVs"` / ad-hoc helper script request | Applies the Golden Rules directly (simplicity first, single responsibility) — no reference file needed for a small script. |
+| `"This function is slow, why?"` / `"Bu kodu optimize et"` | Loads `references/performance.md` — profiles with `cProfile`/`py-spy` first, then applies the matching optimization pattern. |
+| `"Write tests for this"` / `"Şunun için pytest yaz"` | Loads `references/testing.md` — fixtures, mocking, async tests, property-based testing as the case requires. |
+| `"Refactor this class"` / `"Composition mi inheritance mi kullanmalıyım?"` | Loads `references/design-patterns.md` — SRP, composition-over-inheritance, Rule of Three, dependency injection. |
+
 ## Golden Rules
 
 - **Profile before optimizing.** Measure with `cProfile`/`py-spy` first — don't guess at bottlenecks.

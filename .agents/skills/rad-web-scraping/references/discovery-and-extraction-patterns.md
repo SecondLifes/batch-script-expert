@@ -41,11 +41,15 @@ Start cheap, escalate only when the cheaper option actually fails:
 
 1. `httpx` (or `requests`) — works for the large majority of API/JSON
    targets from Phase 1.
-2. `curl_cffi` — when a site fingerprints the TLS/HTTP client and blocks
-   plain `httpx`/`requests` even though the content itself needs no JS.
-   Mimics real browser TLS fingerprints. Use only to get past client
-   fingerprinting on a site you're legitimately accessing — not as a tool
-   for evading access controls (see the Golden Rules in `SKILL.md`).
+2. `curl_cffi` — mimics real browser TLS fingerprints. **Scope is
+   narrow and matches `SKILL.md`'s Golden Rules:** a site blocking your
+   client based on its TLS/HTTP fingerprint is a bot-detection decision,
+   and defeating it on a live third-party site is detection evasion —
+   out of scope regardless of phrasing. Reach for `curl_cffi` only for
+   client-compatibility issues in an environment you own or are
+   explicitly authorized to test (your own service, a staging target, a
+   documented pentest engagement) — never to get a blocked scraper back
+   onto someone else's site.
 3. Playwright (directly, or via crawl4AI/ScrapeGraphAI's built-in browser
    control — see `tool-selection.md`) — only when the data genuinely
    doesn't exist until JS runs.

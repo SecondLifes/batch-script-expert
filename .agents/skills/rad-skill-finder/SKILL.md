@@ -1,6 +1,6 @@
 ---
 name: rad-skill-finder
-description: Searches for and recommends AI agent skills relevant to a task or domain — via the npx skills ecosystem (skills.sh leaderboard), this project's own .agents/skills folder, curated GitHub directories, and the public web as a last resort. Never installs anything without explicit approval. Check here BEFORE writing any non-trivial capability from scratch — git/GitHub automation, web frontend (HTML/CSS/JS/Bootstrap/visual design), CI/CD, cloud APIs, database access patterns — even when confident about how to do it from general knowledge; a specialized skill usually encodes more than general knowledge alone. Use when adding new capability to this project, or when unsure whether an existing skill already covers a task.
+description: Searches for and recommends AI agent skills relevant to a task or domain — via the npx skills ecosystem (skills.sh leaderboard), this workspace's local skill library (spec-kits/*/.agents/skills, .claude/skills), curated GitHub directories, and the public web as a last resort. Never installs anything without explicit approval. Check here BEFORE writing any non-trivial capability from scratch — git/GitHub automation, web frontend (HTML/CSS/JS/Bootstrap/visual design), CI/CD, cloud APIs, database access patterns — even when confident about how to do it from general knowledge; a specialized skill usually encodes more than general knowledge alone. Use when building or extending a template, or when unsure whether an existing skill already covers a task.
 ---
 
 # Skill Finder
@@ -20,9 +20,11 @@ Concrete triggers:
   — git/GitHub automation, web frontend (HTML/CSS/JS/Bootstrap, visual/UI
   design), CI/CD, cloud APIs, database access patterns, and similar. "I
   already know how to do this" is not a reason to skip the check.
+- `rad-template-builder` searching for a relevant skill for a new template
+  (this skill's main caller).
 - User asks "is there a skill for this?" or describes a capability without
-  knowing whether it already exists as a skill.
-- Adding new capability to this project, before rewriting the same
+  knowing whether it exists as a skill.
+- Adding new capability to an existing template, before rewriting the same
   content from scratch.
 
 Not every trivial action needs a full search (reading a file, running an
@@ -37,6 +39,15 @@ CI"). If ambiguous, clarify exactly what's being searched for with the
 user first — searching the wrong topic and reporting "nothing found" is
 worse than not searching at all.
 
+## Usage
+
+| You say | What happens |
+|---|---|
+| `"Is there a skill for PostgreSQL?"` / `"GitHub Actions için bir skill ara"` | Runs the Search order below (local workspace → `npx skills` → 4 directory sites → GitHub awesome-lists → open web), stops at the first strong match, reports candidates with source + description + quality signal. |
+| A vague/ambiguous topic (e.g. `"find me a database skill"`) | Asks what exactly is being searched for before running any search — never guesses and reports "nothing found" on the wrong topic. |
+| `"Yes, install that one"` (after candidates are shown) | Runs `npx skills add <owner/repo> --skill <skill-name>` (no `-g`, no `-y`) for an ecosystem match, or hand-copies a web/GitHub find into `.agents/skills/<name>/SKILL.md`; verifies the file actually landed, integrity-checks the content, then runs the target template's generator script and updates its map-doc. |
+| Nothing matches anywhere in the search order | States that explicitly, then writes the capability from scratch — but only after verifying it by actually running it. |
+
 ## Known good picks (skip the full search when these match)
 
 Already-verified strong matches — recommend these directly (after
@@ -47,7 +58,7 @@ approval) instead of running the full search order below:
   skill (openskills.cc/skills/anthropics-skills-frontend-design). Install:
   `npx skills add anthropics/frontend-design`.
 - **Web scraping / structured data extraction** — covered by this
-  project's own `rad-web-scraping` skill (step 1, local workspace check,
+  workspace's own `rad-web-scraping` skill (step 1, local workspace check,
   will find it before this section is ever reached); its
   `references/tool-selection.md` holds the verified crawl4AI/ScrapeGraphAI
   comparison. Not duplicated here to avoid two sources of truth drifting
@@ -55,16 +66,20 @@ approval) instead of running the full search order below:
 
 ## Search order (cheapest to most expensive, local first)
 
-1. **This project's own skills** — does anything under this project's own
-   `.agents/skills/*` already cover this topic? If so, recommend it and
-   **stop** — reproducing the same content is wasted effort and a
-   consistency risk. State which local skill covers it.
+1. **Local workspace** — does anything under this workspace's
+   `spec-kits\*\.agents\skills\*` or `.claude\skills\*` already cover this topic? If so,
+   recommend it and **stop** — reproducing the same content in another
+   template is wasted effort and a consistency risk. State which template
+   the found skill lives in and whether it can be copied (license /
+   general-purpose considerations).
 
 2. **The `npx skills` ecosystem (primary external source — Vercel's
    official, verified project)** — the open agent-skills package manager
-   announced by Vercel at `vercel.com/changelog`, MIT licensed, 410,000+
-   total installs; supports 17 agent tools (Claude Code, Cursor, Codex,
-   Copilot, Windsurf, Gemini, Cline...). Start here directly:
+   announced by Vercel at `vercel.com/changelog`, MIT licensed; supports
+   all major coding agents (Claude Code, Cursor, Codex, Copilot,
+   Windsurf, Gemini, Cline and more — the supported-agent count keeps
+   growing, see `skills.sh` for the current list rather than trusting a
+   number frozen here). Start here directly:
    - Check the `https://skills.sh/` leaderboard first — popular,
      battle-tested skills are ranked there by install count.
    - Search: `npx skills find <topic>`
@@ -124,12 +139,12 @@ approval) instead of running the full search order below:
 
 Say so explicitly, then write the capability yourself — but **verify it by
 actually running it** before calling it done, and if verification required
-debugging something non-obvious, **capture the corrected pattern into this
-project's own rules/reference docs**, not just the one-off deliverable.
-This closes the loop this skill exists to open: a capability with no
-matching skill will keep getting rewritten, differently and sometimes
-wrongly, by separate sessions unless the first one that gets it right
-(through real testing) leaves a durable trace behind.
+debugging something non-obvious, **capture the corrected pattern into the
+calling project's own rules/reference docs**, not just the one-off
+deliverable. This closes the loop this skill exists to open: a capability
+with no matching skill will keep getting rewritten, differently and
+sometimes wrongly, by separate sessions unless the first one that gets it
+right (through real testing) leaves a durable trace behind.
 
 ### Known blocked/unreachable sources
 
@@ -149,7 +164,7 @@ general resource).
 ## Output
 
 A list of candidates, each with:
-- **Source** (this project's own skills / `npx skills` / GitHub directory / web URL)
+- **Source** (local template / `npx skills` / GitHub directory / web URL)
 - **Description** (what the skill does)
 - **Quality signal** — a concrete number where possible (install count,
   star count, last-updated date); otherwise the official/community
@@ -174,25 +189,26 @@ npx skills add <owner/repo> --skill <skill-name>
 
 Example: `npx skills add vercel-labs/skills --skill find-skills`
 
-- **Don't use `-g` (global)** — default to a project-local install; the
-  target is this project's own `.agents/skills/` folder, not the user's
-  global `~/.claude/skills/`.
+- **Don't use `-g` (global)** — default to a project-local install,
+  because our target is always a specific template's `.agents/skills/`
+  folder, not the user's global `~/.claude/skills/`.
 - **Don't use `-y` (auto-approve)** — approval was already obtained in
   our conversation; this flag skips the tool's own internal confirmation
   and is unnecessary.
 - **Verify the file actually landed where expected** after install
-  (don't assume — check with `ls`/`find`) — the target is this project's
-  `.agents/skills/<name>/`; npx's default behavior may write somewhere
-  else (e.g. the working directory root).
+  (don't assume — check with `ls`/`find`) — the target is usually
+  `spec-kits/<template>/.agents/skills/<name>/`; npx's default behavior
+  may write somewhere else (e.g. the working directory root).
 
 ### From the web/GitHub
 
-An approved candidate is added by hand into this project's
-`.agents/skills/<name>/SKILL.md` path — following the progressive-
-disclosure convention: a short `SKILL.md` (when to use + quick reference)
-with deep content under `references/*.md`. A single-file `SKILL.md`
-exceeding 250-350 lines is never accepted — even if the source came from
-the web/marketplace that way, split it into this pattern when adding it.
+An approved candidate is added by hand into the target template's
+`.agents/skills/<name>/SKILL.md` path — following this workspace's
+progressive-disclosure convention: a short `SKILL.md` (when to use +
+quick reference) with deep content under `references/*.md`. A single-file
+`SKILL.md` exceeding 250-350 lines is never accepted — even if the source
+came from the web/marketplace that way, split it into this pattern when
+adding it.
 
 ### Integrity check
 
@@ -200,13 +216,13 @@ Verify that downloaded/copied content actually matches what was shown at
 the source (e.g. file size/line count consistent with expectations, no
 obvious malicious/unrelated content — hidden instructions, credential
 requests, sending data to an external URL — actually read the content
-before installing). "Trust without ever reading the content" is never
+before installing). Not as strict as `autoskills.sh`'s SHA-256
+verification, but "trust without ever reading the content" is never
 acceptable.
 
-After installation: run `pwsh tools/generate-ai-configs.ps1` (if this
-project has it — see `.agents/rules/sync-workflow.md`) and add the new
-skill to this project's map-doc equivalent (e.g. `docs/proje-haritasi.md`)
-— a forgotten skill is as bad as one that never existed.
+After installation: run the template's generator script (if any) and add
+the new skill to the template's map-doc equivalent — a forgotten skill is
+as bad as one that never existed.
 
 ## Honesty
 

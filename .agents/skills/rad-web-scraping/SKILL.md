@@ -12,6 +12,15 @@ description: General-purpose web scraping / structured data extraction skill —
 - Deciding between a plain HTTP request, a scraping library, and full browser automation for a given target.
 - Reviewing or debugging an existing scraper that's fragile or getting blocked.
 
+## Usage
+
+| You say | What happens |
+|---|---|
+| `"Pull the prices from this site"` / `"Bu siteden ilan verilerini çek"` | Discovery-priority check first (API → embedded JSON → sitemap/feed → DOM as last resort, full order in `references/discovery-and-extraction-patterns.md`), then `references/tool-selection.md`'s decision tree picks the library. |
+| `"Turn these pages into clean Markdown for my RAG index"` | Recommends `crawl4AI` (LLM/RAG-ready output) per `references/tool-selection.md`. |
+| `"My scraper keeps getting blocked / breaks randomly"` | Reviews against the retry/backoff/rate-limit baseline in `references/discovery-and-extraction-patterns.md` — a scraper missing these isn't hardened, it's incomplete. |
+| `"Bypass this CAPTCHA / get around their bot detection"` | Refused — out of scope regardless of phrasing; reasonable retries/rate-limiting are fine, detection evasion is not. |
+
 ## Golden Rules
 
 - **Discover before you parse.** A REST/GraphQL API, a JSON blob embedded in the page's HTML, or a sitemap/feed is more stable than any CSS selector — always look for one before writing DOM-parsing code. Full priority order: `references/discovery-and-extraction-patterns.md`.
