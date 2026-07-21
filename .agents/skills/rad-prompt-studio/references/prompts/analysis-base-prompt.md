@@ -343,6 +343,37 @@ Every analysis output starts with this header, before anything else:
   findings (see Golden Rule 4) — that only happens in the explicit
   reconciliation mode below.
 
+### Mandatory coverage manifest (quality floor)
+
+Every analysis report ends with a **Coverage Manifest** section listing
+every file that was actually read for this target — one line each:
+
+```
+## Coverage Manifest
+- `{relative path}` — {line count} lines, read in full
+- `{relative path}` — {line count} lines, read lines {a}-{b} only ({reason})
+```
+
+Rules, non-negotiable:
+
+- A file not listed here was not read; a finding citing an unlisted file
+  is invalid. A target folder analyzed "as a whole" (skill folder =
+  `SKILL.md` + every `references/*.md`) must list every file in it — a
+  file skipped entirely must still appear, as
+  `- {path} — NOT READ ({reason})`, so gaps are visible instead of
+  silent.
+- Line counts come from actually opening the file this session (same
+  bar as the header's "verified"), never estimated.
+- **Partial reads are the exception and carry a stated reason** —
+  "read in full" is the default expectation for system-layer files,
+  which are rarely too large to read whole.
+- This manifest is the report's mechanical quality floor: a run too
+  shallow to have read the files cannot produce an honest manifest, and
+  an honest manifest that is mostly "NOT READ" is self-documenting as
+  incomplete. Evaluation mode graders should check findings against the
+  manifest first — citations into files the manifest doesn't cover
+  invalidate the finding outright.
+
 ### Mandatory short Turkish summary
 
 Immediately after the header (before `OVERALL` or any finding), a short,
