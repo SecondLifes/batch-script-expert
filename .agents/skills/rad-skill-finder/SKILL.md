@@ -185,7 +185,18 @@ Say so explicitly (with the tried queries shown), then **fall back to
 `rad-web-scraping`**: research the domain on the open web, gather the
 authoritative source material (official docs, established best-practice
 writeups), and write the capability yourself from that material — never
-from unaided general knowledge. **Verify it by actually running it**
+from unaided general knowledge.
+
+**The domain research MUST survey the ecosystem's popular third-party
+libraries, not just first-party/vendor docs** — check
+`github.com/topics/<domain-slug>` and star-ranked search for the
+de-facto community tools, and make the written capability cover (or at
+least name) the ones a practitioner would actually reach for. Real
+observed gap this rule exists to prevent: a Delphi HTTP-client skill was
+authored from vendor RTL docs alone and initially missed
+RESTRequest4Delphi (600+ stars, the community's go-to fluent client) —
+"no matching *skill* exists" never means "no relevant *library*
+exists." **Verify it by actually running it**
 before calling it done, and if verification required debugging something
 non-obvious, **capture the corrected pattern into the calling project's
 own rules/reference docs**, not just the one-off deliverable. This closes the loop this skill exists to open: a capability
