@@ -362,7 +362,7 @@ Open **this kit itself** as the working folder in any supported AI CLI (Claude C
 | `Sistemi analiz et` / `Analyze the system` | Analyzes this kit's own system layer (`.agents/skills/`, `.agents/rules/`, `.agents/commands/`, `AGENTS.md`, `.claude/CLAUDE.md`) — `examples/`, `docs/`, `src/`, `tools/` stay out unless you ask. The report lands in this kit's own `analysis/result/{ai}_v{n}.md`, so audit history travels with the kit. |
 | `Değerlendir` / `Evaluate the findings` | Grades the existing reports in `analysis/result/` against current content (`STILL_VALID`/`STALE`/`REFUTED`...), presents a correction list, and waits for your approval. |
 | `Düzelt: <hedef>` / `Fix <target>` | Approval-gated edit: analysis → evaluation of priors → your explicit approval → the edit. If the edited file is a bundled shared skill (`rad-*`) or a `Prompts/system/` master and this kit sits inside its parent AI-Spec-Kits-Maker workspace, the same fix is applied to the parent's master copy too — both sides stay current. |
-| `<konu> için skill var mı?` / `Is there a skill for <topic>?` | The bundled `rad-skill-finder` searches local → `npx skills` ecosystem → directories → web; never installs anything without your approval. |
+| `<konu> için skill var mı?` / `Is there a skill for <topic>?` | The bundled `rad-skill-finder` searches local → `npx skills` ecosystem → directories → MCP/plugin registries → web with visible evidence (≥3 query phrasings); finds go through quarantine + a security scan, then a single install approval. |
 
 ---
 
