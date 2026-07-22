@@ -25,6 +25,7 @@ Kuralların, komutların ve becerilerin (skills) **gerçek içeriği sadece `.ag
 |---|---|
 | `AGENTS.md` | Codex CLI, Cursor, GitHub Copilot, Gemini/Antigravity ve Kiro'nun **doğrudan okuduğu** evrensel kural özeti — dil/stack (Windows Batch), naming, hata yönetimi, kaynak yönetimi, anti-pattern'ler dolu halde. |
 | `README.md` | İnsan okuyucu için proje tanıtımı, kurulum (Quick Start), kit yapısının genel görünümü, örnek kod. |
+| `settings.json` | Bu kitin kendi çalışma-zamanı ayarları — commit'lenir. Şu an sadece `versioning.current_version` (semver) tutuyor; şema `.agents/rules/kit-settings.md`'de. |
 | `README.tr-TR.md` | `README.md`'nin birebir Türkçe karşılığı — aynı bölüm sırası, aynı içerik, aynı "Batch Script Expert" başlığı (ayrı bir Türkçe başlık yok). Dosya adı nokta-ayraçlı (`_tr-TR` değil `.tr-TR`). |
 | `LICENSE` | Apache License 2.0. Dosyanın sonundaki APPENDIX'te `Copyright 2026 Emrah BAŞPINAR - Recep Eymen BAŞPINAR` — `template-vars.json`'daki değerlerle dolduruldu, gövde metni (TERMS AND CONDITIONS) değiştirilmedi. |
 | `CODE_OF_CONDUCT.md` | Contributor Covenant v1.4 — standart, dil-agnostik metin, Türkçe çevirisi kasıtlı olarak yok. |
@@ -41,6 +42,8 @@ Kuralların, komutların ve becerilerin (skills) **gerçek içeriği sadece `.ag
 | Dosya | Konu |
 |---|---|
 | `sync-workflow.md` | Bu çoklu-araç mimarisinin nasıl çalıştığı — önce bu okunur. |
+| `kit-settings.md` | Kit kökündeki `settings.json`'ın şeması ve kullanım kuralları (versiyon bilgisi, Golden Rule 7'nin etiketleme adımı buradan okur/yazar). |
+| `local-machine-registry.md` | Bu makineye özel `%USERPROFILE%.radsettings.json` kaydı — kurulu kütüphane kaynak yollarını okuyup gerçek kaynağı tahmin yerine doğrudan okuma kuralı. |
 | `batch-conventions.md` | Windows Batch konvansiyonları: CRLF zorunluluğu, header blok, naming (UPPER_SNAKE_CASE değişken, PascalCase label), `%VAR%` vs `!VAR!`, hata yönetimi, yol tırnaklama, modülerlik (`call :Label`), kullanıcıya-dönük script'lerde renkli çıktı/progress bar (PowerShell'e delege, `timeout` yerine `ping`), anti-pattern listesi. Glob: `**/*.bat`, `**/*.cmd`. |
 
 ### `.agents/commands/`

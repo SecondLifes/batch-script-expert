@@ -110,6 +110,14 @@ approval) instead of running the full search order below:
    the found skill lives in and whether it can be copied (license /
    general-purpose considerations).
 
+   **For a compiled-library/component gap specifically** (not a skill
+   gap — an actual library's real API), also check the current kit's
+   `.agents/rules/local-machine-registry.md` convention: if
+   `%USERPROFILE%\.rad\settings.json` registers a local source path for
+   the relevant stack/vendor, search it and read the real installed
+   source before going any further — ground truth beats every external
+   source below it.
+
 2. **The `npx skills` ecosystem (primary external source — Vercel's
    official, verified project)** — the open agent-skills package manager
    announced by Vercel at `vercel.com/changelog`, MIT licensed; supports

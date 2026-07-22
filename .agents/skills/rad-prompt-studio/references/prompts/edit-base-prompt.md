@@ -70,9 +70,15 @@ adopted, and only once an approved change list exists.
    3. **`CHANGELOG.md`** — every fix adds a line under the release-in-
       progress's `### Fixed` (Keep a Changelog format; create the file
       if the repo lacks one). Committed as its own final `chore:` commit.
-   4. **Version tag** — after all fixes: bump the annotated
-      `vMAJOR.MINOR.PATCH` tag (PATCH for fixes, MINOR if features/
-      capabilities were added) locally.
+   4. **Version tag** — after all fixes: if the kit has a `settings.json`
+      (see `.agents/rules/kit-settings.md`), read
+      `versioning.current_version`, compute the bump (PATCH for fixes,
+      MINOR if features/capabilities were added, MAJOR for breaking
+      changes), write the new value back and commit it, then create the
+      matching annotated `vMAJOR.MINOR.PATCH` tag locally — tag and
+      `settings.json` must always agree. If the kit predates
+      `settings.json`, fall back to deriving the next version from the
+      latest existing tag instead of blocking on the missing file.
    5. **Never push** — commits, tags, and the moment issues get linked
       to commits all go live when the *user* pushes; issue creation via
       `gh` is the one step that touches GitHub directly, and it only
