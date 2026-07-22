@@ -1,17 +1,55 @@
-# Local Machine Registry (`.rad/settings.json`) — Rules
+# The `.rad` Hub (`%USERPROFILE%\.rad`) — Rules
 
-A per-machine, per-user registry of installed tooling and local library
-source locations — lives **outside every repo**, at
-`%USERPROFILE%\.rad\settings.json` (Windows) / `$HOME/.rad/settings.json`
-(Linux/macOS). It is never part of any kit's git history, never
-published, never shared between machines — it exists so an AI working on
-*this specific machine* can ground itself in what is actually installed
-here instead of guessing or reaching for the web first.
+A per-machine, per-user hub that gives every AI session one fixed place
+to find this ecosystem's pieces — regardless of where the workspace or a
+kit clone actually lives on disk. Built and maintained by
+`tools/rad.ps1` in the AI-Spec-Kits-Maker workspace; fully rebuildable
+at any time (new PC, after a format, moved workspace) with
+`pwsh tools/rad.ps1 -Action Install`.
 
-## Schema
+## The one mental model that matters
+
+**`.rad` is a WINDOW, not a photocopy.** Every link under it opens onto
+the real files in the real repos. Editing through the window edits the
+real file (intended); deleting or running destructive git commands
+through the window destroys the real thing (so don't).
+
+## Structure
+
+```
+%USERPROFILE%\.rad\
+  settings.json        REAL FILE — machine registry (see below)
+  analysis\{repo}\     REAL FOLDERS — analysis outputs live here now,
+                       decoupled from every repo (see analysis-output.md)
+  workspace  -> <workspace root>            (link)
+  prompts    -> <workspace>\Prompts         (link)
+  tools      -> <workspace>\tools           (link)
+  spec-kits\{kit} -> <workspace>\spec-kits\{kit}   (links, one per kit)
+  skills\{Category}\{skill} -> real skill folder    (links)
+  skills\_new\{repo}@{skill}                (links awaiting categorization)
+```
+
+- **Real data in `.rad` is ONLY `settings.json` and `analysis\`** —
+  everything else is links, reproducible from the committed
+  `rad-skills-index.json` at the workspace root. `-Action Clean` removes
+  links only and never touches those two.
+- **Skill categories** (Delphi, Excel, MSSQL, Firebird, Web, ...) are
+  AI-managed: when `rad-skill-finder` installs or an AI authors a new
+  skill, it adds the entry to the workspace's `rad-skills-index.json`
+  (creating a fitting category if none fits) and re-runs Install.
+  Anything not in the index appears under `skills\_new\` and
+  `-Action Verify` lists it as pending categorization.
+- Byte-identical bundled mirrors of workspace `rad-*` masters are
+  auto-skipped (hash check) — a mirror showing up under `_new` is a
+  **staleness signal**: refresh the bundled copy instead of
+  categorizing it.
+
+## `settings.json` — the machine registry
 
 ```json
 {
+  "workspace_root": "E:\\...\\AI-Spec-Kits-Maker",
+  "last_bootstrap": { "date": "...", "machine": "..." },
   "delphi": {
     "installs": ["37", "14"],
     "sources": {
@@ -23,55 +61,29 @@ here instead of guessing or reaching for the web first.
 }
 ```
 
-- **Top-level keys** — one per stack/kit identity (`delphi` today;
-  `dotnet`, `python`, etc. could join later as other kits need this).
-  A kit only reads its own key; a missing key means "nothing registered
-  for this stack on this machine" — not an error, just skip this step.
-- **`installs`** — an **opaque list**, informational only. Do not
-  attempt to interpret these values as specific product versions unless
-  the user has explicitly told you what they mean in that conversation —
-  guessing a wrong version mapping is worse than not using the field at
-  all. Treat it as "these are the installs registered here" and nothing
-  more until told otherwise.
-- **`sources`** — local directories that actually contain installed
-  library/framework source code. `"global"` is a list of general-purpose
-  source roots (open-source checkouts, misc vendor SDKs); any other key
-  is a named vendor/product with its own dedicated path (a single string
-  or a list).
+- **`workspace_root`** — written by every Install run; the canonical way
+  for a kit cloned *anywhere* to find the parent workspace (used by
+  edit-base-prompt's Golden Rule 6 when `../../` doesn't resolve).
+- **Stack keys** (`delphi`, ...) — user-maintained. `installs` is an
+  **opaque list**: never interpret the values as product versions unless
+  the user defines them in that conversation. `sources` registers local
+  directories holding actually-installed library/vendor source code —
+  when a library/component topic comes up, search these and **read the
+  real installed source** before reaching for the web; cite the actual
+  file path read. Missing file or missing key = skip silently, it's
+  optional infrastructure.
+- Never store secrets here — paths and opaque markers only.
 
-## How to use it
+## Disciplines (AI-binding)
 
-Before treating a third-party library/component topic as "nothing local,
-go external," check whether this machine has a relevant entry:
-
-1. Read `%USERPROFILE%\.rad\settings.json` (or the platform equivalent).
-   If the file doesn't exist or the current kit's stack key is absent,
-   skip this step entirely — it's optional infrastructure, not a
-   requirement.
-2. If a relevant vendor key or `"global"` path matches the topic, search
-   those directories for the actual unit/class/topic (e.g. `grep`/`find`
-   for the type name across the registered paths).
-3. **Read the real, installed source directly** when found — this is
-   ground truth for the exact version installed on this machine, more
-   reliable than a web search or a generic doc page written for a
-   different version. Cite the actual file path read, same as any other
-   evidence-based finding.
-4. If nothing matches in the registered sources, fall back to the normal
-   discovery order (`rad-skill-finder`'s search ladder, then
-   `rad-web-scraping`) — this registry is a fast, high-trust first look,
-   not a replacement for the rest of the discovery discipline.
-
-This is the natural companion to `rad-skill-finder`'s "If nothing found
-anywhere" fallback: for a compiled-library ecosystem like Delphi's, the
-single best source of truth is often already sitting on disk, registered
-here, rather than out on the web.
-
-## What this is not
-
-- Not a substitute for compiling/running verification — reading source
-  confirms the API surface exists and its exact signature; it does not
-  replace actually exercising the code.
-- Not committed, not synced, not part of any kit's distribution — every
-  machine maintains its own copy independently.
-- Not a place for secrets/credentials — it holds paths and opaque
-  version markers only.
+1. **Never `rm -rf` anything under `.rad`.** Removing links is
+   `-Action Clean`'s job (it deletes reparse points without recursing).
+   A recursive delete pushed through a link destroys real repo files.
+2. **No destructive git through the window.** A git command run inside
+   `.rad\spec-kits\<kit>` or `.rad\workspace` operates on the real repo
+   — there is no sandbox copy. Know which repo you're really in.
+3. **Repair = rebuild.** Broken/missing/suspect links are never fixed by
+   hand — `-Action Install` (idempotent) or `Clean` + `Install`.
+4. **`-Action Push` is user-invoked.** AIs commit; the user publishes —
+   `rad.ps1 -Action Push` (kits first, root last, `--follow-tags`) runs
+   only when the user asks for it in that turn.

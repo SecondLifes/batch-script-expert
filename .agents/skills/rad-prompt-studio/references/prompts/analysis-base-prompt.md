@@ -93,27 +93,21 @@ it found, or that nothing matched, in the finding's own Evidence field.
 Never install anything it finds without the user's explicit approval —
 `rad-skill-finder`'s own rule, unchanged here.
 
-**Output location depends on whether the target is its own independent
-git repository** (check with `git -C <target> rev-parse --show-toplevel`
-— if it resolves to the target folder itself rather than this
-workspace's root, the target is independent; this is exactly the case
-for a `spec-kits/*` folder that has been converted to a git submodule
-with its own remote, e.g. `delphi-expert`, `batch-script-expert`,
-`prompt-analyzer-expert`):
+**Output location — the `.rad` hub, keyed by which repo owns the
+target** (determine the owning repo with
+`git -C <target> rev-parse --show-toplevel`):
 
-- **Target is its own independent repo** → write the result inside
-  *that* repo, at `<target>/analysis/result/{ai_name}_v{n}.md` (no extra
-  target-name folder — the repo root already *is* the target, so nesting
-  a folder named after it would be redundant). This is what makes the
-  analysis discoverable and re-evaluable by anyone working inside that
-  repo alone (its own clone, its own GitHub, no parent workspace
-  present) — the whole point of `evaluation-base-prompt.md`'s "grade
-  whether prior findings still hold" flow breaks if the findings live
-  somewhere that repo can't see.
-- **Target is not its own repo** (a plain folder inside this workspace,
-  no independent git boundary) → the standard convention applies
-  unchanged: `analysis/result/{target_name}/{ai_name}_v{n}.md` at this
-  workspace's own root, per `.agents/rules/analysis-output.md`.
+- **Default:** `%USERPROFILE%\.rad\analysis\{repo_name}\{target_name}\
+  {ai_name}_v{n}.md` — where `{repo_name}` is the owning repo's folder
+  name (`AI-Spec-Kits-Maker` for this workspace's own targets; the
+  kit's name, e.g. `delphi-expert`, for a kit target). One central
+  place, decoupled from every repo's git history — see
+  `.agents/rules/analysis-output.md`.
+- **Legacy fallback:** if `%USERPROFILE%\.rad\` doesn't exist on this
+  machine (hub not installed), fall back to the owning repo's own
+  `analysis/result/{target_name}/{ai_name}_v{n}.md` (for an independent
+  kit repo, drop the redundant target-name folder when the repo root
+  itself is the target), and state the fallback in the report header.
 
 If a later Edit Mode pass needs to bump the parent workspace's submodule
 pointer after committing something inside the target's own repo (per

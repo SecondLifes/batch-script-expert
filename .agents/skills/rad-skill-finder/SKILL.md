@@ -103,12 +103,23 @@ approval) instead of running the full search order below:
 
 ## Search order (cheapest to most expensive, local first)
 
-1. **Local workspace** — does anything under this workspace's
-   `spec-kits\*\.agents\skills\*` or `.claude\skills\*` already cover this topic? If so,
-   recommend it and **stop** — reproducing the same content in another
-   template is wasted effort and a consistency risk. State which template
-   the found skill lives in and whether it can be copied (license /
-   general-purpose considerations).
+1. **Local workspace** — fastest first look: if the `.rad` hub is
+   installed, read `%USERPROFILE%\.rad\skills\` (categorized link farm)
+   and the workspace's committed `rad-skills-index.json` — one file
+   lists every canonical skill across the workspace and all kits, by
+   category. Without the hub, fall back to scanning
+   `spec-kits\*\.agents\skills\*` and `.claude\skills\*` directly.
+   If anything covers the topic, recommend it and **stop** —
+   reproducing the same content in another template is wasted effort
+   and a consistency risk. State which repo the found skill lives in
+   and whether it can be copied (license / general-purpose
+   considerations).
+
+   **After installing or authoring a new skill:** add its entry to the
+   workspace's `rad-skills-index.json` (pick a fitting category, or
+   create one) and re-run `pwsh tools/rad.ps1 -Action Install` so the
+   hub's category link appears — an unindexed skill shows up under
+   `skills\_new\` as a pending item, which Verify nags about.
 
    **For a compiled-library/component gap specifically** (not a skill
    gap — an actual library's real API), also check the current kit's

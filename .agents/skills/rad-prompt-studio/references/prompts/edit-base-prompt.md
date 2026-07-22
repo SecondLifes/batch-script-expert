@@ -38,14 +38,17 @@ adopted, and only once an approved change list exists.
    An approved edit to one side must reach the other side in the same
    run — both sides stay current, always:
    - **Editing inside a kit** (the working directory is a kit that is its
-     own git repo): after applying the edit, check whether the parent
-     workspace exists at `../../` — the marker is a `CLAUDE.md` charter
-     there plus a matching canonical copy (`../../.claude/skills/<name>/`).
-     If found, apply the identical change to the canonical copy too, and
-     run the parent's `tools/sync-hardlinks.ps1` if the canonical file is
-     hardlinked. If no parent exists (a standalone clone), state that
-     explicitly in the edit report's Verification field — never silently
-     skip it.
+     own git repo): after applying the edit, locate the parent workspace —
+     first at `../../` (marker: a `CLAUDE.md` charter there plus a
+     matching canonical copy, `../../.claude/skills/<name>/`); if
+     `../../` doesn't resolve (the kit is cloned somewhere else), read
+     `workspace_root` from `%USERPROFILE%\.rad\settings.json` and look
+     there instead. If found either way, apply the identical change to
+     the canonical copy too, and run the parent's
+     `tools/sync-hardlinks.ps1` if the canonical file is hardlinked. If
+     no parent exists by either route (a standalone clone on a machine
+     without the hub), state that explicitly in the edit report's
+     Verification field — never silently skip it.
    - **Editing at the workspace root**: if the edited file is a canonical
      `rad-*` skill, propagate to `blank-scaffold/` and to every
      `spec-kits/*` kit that actually bundles a copy — this is exactly
